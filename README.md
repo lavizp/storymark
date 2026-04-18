@@ -65,6 +65,41 @@ function App() {
 }
 ```
 
+## Multiple Folders
+
+Pass an array to `docsPath` to load markdown files from multiple directories:
+
+```ts
+// Next.js
+export const GET = createStorymarkHandler({
+  docsPath: ['./docs', './guides', './faq']
+})
+
+// Vite
+storymarkPlugin({
+  docsPath: ['./docs', './guides', './faq']
+})
+```
+
+Each file's ID is prefixed with its folder path to avoid collisions:
+
+```ts
+// API response:
+[
+  { id: 'docs/getting-started', title: 'Getting Started', slug: 'docs/getting-started' },
+  { id: 'docs/installation', title: 'Installation', slug: 'docs/installation' },
+  { id: 'guides/api', title: 'Api', slug: 'guides/api' },
+  { id: 'faq/questions', title: 'Questions', slug: 'faq/questions' }
+]
+```
+
+Fetch a specific file by its full ID:
+
+```ts
+// GET /api/storymark/docs/getting-started
+// GET /api/storymark/guides/api
+```
+
 ## API
 
 ### Core (`storymark/core`)
@@ -77,6 +112,10 @@ const files = getMarkdownList('./docs')
 
 const content = getMarkdownFile('./docs', 'getting-started')
 // '# Hello\n\nThis is markdown content.'
+
+// Multiple folders
+const allFiles = getMarkdownList(['./docs', './guides'])
+const content = getMarkdownFile(['./docs', './guides'], 'guides/api')
 ```
 
 ### UI (`storymark/ui`)
@@ -99,6 +138,11 @@ createStorymarkHandler({
   docsPath: './docs',
   disableInProduction: false,
 })
+
+// Multiple folders
+createStorymarkHandler({
+  docsPath: ['./docs', './guides'],
+})
 ```
 
 ### Vite (`storymark/vite`)
@@ -109,6 +153,11 @@ import { storymarkPlugin } from 'storymark/vite'
 storymarkPlugin({
   docsPath: './docs',
   disableInProduction: false,
+})
+
+// Multiple folders
+storymarkPlugin({
+  docsPath: ['./docs', './guides'],
 })
 ```
 
