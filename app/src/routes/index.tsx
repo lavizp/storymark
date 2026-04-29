@@ -68,19 +68,19 @@ function App() {
           storymark
         </div>
         <div className="flex gap-8 uppercase tracking-[0.1em] text-[14px]">
-          <a href="#" className="text-[var(--text-dim)] hover:text-[var(--text-main)] transition-colors">
+          <a href="/docs" className="text-[var(--text-dim)] hover:text-[var(--text-main)] transition-colors">
             Docs
           </a>
-          <a href="#" className="text-[var(--text-dim)] hover:text-[var(--text-main)] transition-colors">
+          <a href="/api" className="text-[var(--text-dim)] hover:text-[var(--text-main)] transition-colors">
             API
           </a>
-          <a href="#" className="text-[var(--text-dim)] hover:text-[var(--text-main)] transition-colors">
+          <a href="/vite" className="text-[var(--text-dim)] hover:text-[var(--text-main)] transition-colors">
             Vite
           </a>
-          <a href="#" className="text-[var(--text-dim)] hover:text-[var(--text-main)] transition-colors">
+          <a href="/nextjs" className="text-[var(--text-dim)] hover:text-[var(--text-main)] transition-colors">
             Next.js
           </a>
-          <a href="#" className="text-[var(--text-dim)] hover:text-[var(--text-main)] transition-colors">
+          <a href="https://github.com/lavizp/storymark" target="_blank" rel="noopener noreferrer" className="text-[var(--text-dim)] hover:text-[var(--text-main)] transition-colors">
             GitHub
           </a>
         </div>
@@ -98,9 +98,9 @@ function App() {
           </p>
 
           <div className="flex gap-4 items-center">
-            <button className="bg-[var(--text-main)] text-[var(--bg)] px-[28px] py-[12px] rounded font-semibold text-[14px] hover:opacity-90 transition-opacity">
+            <a href="/docs" className="bg-[var(--text-main)] text-[var(--bg)] px-[28px] py-[12px] rounded font-semibold text-[14px] hover:opacity-90 transition-opacity">
               Get Started
-            </button>
+            </a>
             <div className="bg-[var(--card-bg)] border border-[var(--border)] rounded px-[20px] py-[10px] flex items-center justify-between gap-4">
               <code className="font-mono text-[13px] text-[var(--accent)]">npm install storymark</code>
               <button

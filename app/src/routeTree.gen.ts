@@ -9,8 +9,32 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ViteRouteImport } from './routes/vite'
+import { Route as NextjsRouteImport } from './routes/nextjs'
+import { Route as DocsRouteImport } from './routes/docs'
+import { Route as ApiRouteImport } from './routes/api'
 import { Route as IndexRouteImport } from './routes/index'
 
+const ViteRoute = ViteRouteImport.update({
+  id: '/vite',
+  path: '/vite',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NextjsRoute = NextjsRouteImport.update({
+  id: '/nextjs',
+  path: '/nextjs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocsRoute = DocsRouteImport.update({
+  id: '/docs',
+  path: '/docs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiRoute = ApiRouteImport.update({
+  id: '/api',
+  path: '/api',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +43,72 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/api': typeof ApiRoute
+  '/docs': typeof DocsRoute
+  '/nextjs': typeof NextjsRoute
+  '/vite': typeof ViteRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/api': typeof ApiRoute
+  '/docs': typeof DocsRoute
+  '/nextjs': typeof NextjsRoute
+  '/vite': typeof ViteRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/api': typeof ApiRoute
+  '/docs': typeof DocsRoute
+  '/nextjs': typeof NextjsRoute
+  '/vite': typeof ViteRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/api' | '/docs' | '/nextjs' | '/vite'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/api' | '/docs' | '/nextjs' | '/vite'
+  id: '__root__' | '/' | '/api' | '/docs' | '/nextjs' | '/vite'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApiRoute: typeof ApiRoute
+  DocsRoute: typeof DocsRoute
+  NextjsRoute: typeof NextjsRoute
+  ViteRoute: typeof ViteRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/vite': {
+      id: '/vite'
+      path: '/vite'
+      fullPath: '/vite'
+      preLoaderRoute: typeof ViteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nextjs': {
+      id: '/nextjs'
+      path: '/nextjs'
+      fullPath: '/nextjs'
+      preLoaderRoute: typeof NextjsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/docs': {
+      id: '/docs'
+      path: '/docs'
+      fullPath: '/docs'
+      preLoaderRoute: typeof DocsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api': {
+      id: '/api'
+      path: '/api'
+      fullPath: '/api'
+      preLoaderRoute: typeof ApiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +121,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApiRoute: ApiRoute,
+  DocsRoute: DocsRoute,
+  NextjsRoute: NextjsRoute,
+  ViteRoute: ViteRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
