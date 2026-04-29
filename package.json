@@ -1,5 +1,5 @@
 {
-  "name": "storymark",
+  "name": "@lavizp/storymark",
   "version": "1.0.0",
   "description": "Storybook for Markdown files - a React-based UI with backend adapters for Next.js and Vite",
   "main": "./dist/core/index.cjs",
