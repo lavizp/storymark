@@ -5,7 +5,7 @@ Storybook for Markdown files - a React-based UI with backend adapters for Next.j
 ## Installation
 
 ```bash
-npm install storymark
+npm install @lavizp/storymark
 ```
 
 Peer dependencies required:

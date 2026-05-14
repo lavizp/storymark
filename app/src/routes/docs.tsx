@@ -16,7 +16,7 @@ const sections = [
 ## Quick Start
 
 \`\`\`bash
-npm install storymark
+npm install @lavizp/storymark
 \`\`\`
 
 Then configure your API handler and add the UI to your app.`,
@@ -176,11 +176,11 @@ function DocsPage() {
                 <div className="prose-custom">
                   <ReactMarkdown
                     components={{
-                      h2: ({node, ...props}) => <h2 className="text-[20px] font-semibold mt-8 mb-4 text-white" {...props} />,
-                      p: ({node, ...props}) => <p className="text-[15px] text-[var(--text-dim)] leading-[1.7] mb-4" {...props} />,
-                      pre: ({node, ...props}) => <pre className="bg-[#0a0a0c] border border-[var(--border)] rounded-lg p-4 overflow-x-auto my-4" {...props} />,
+                      h2: ({ node, ...props }) => <h2 className="text-[20px] font-semibold mt-8 mb-4 text-white" {...props} />,
+                      p: ({ node, ...props }) => <p className="text-[15px] text-[var(--text-dim)] leading-[1.7] mb-4" {...props} />,
+                      pre: ({ node, ...props }) => <pre className="bg-[#0a0a0c] border border-[var(--border)] rounded-lg p-4 overflow-x-auto my-4" {...props} />,
                       code: (props) => {
-                        const {children, className, node, ...rest} = props
+                        const { children, className, node, ...rest } = props
                         const match = /language-(\w+)/.exec(className || '')
                         return match ? (
                           <code className={`text-[13px] font-mono text-[#98c379] ${className || ''}`} {...rest}>
@@ -192,8 +192,8 @@ function DocsPage() {
                           </code>
                         )
                       },
-                      ul: ({node, ...props}) => <ul className="list-disc pl-6 text-[15px] text-[var(--text-dim)] leading-[1.7] mb-4" {...props} />,
-                      li: ({node, ...props}) => <li className="mb-1" {...props} />
+                      ul: ({ node, ...props }) => <ul className="list-disc pl-6 text-[15px] text-[var(--text-dim)] leading-[1.7] mb-4" {...props} />,
+                      li: ({ node, ...props }) => <li className="mb-1" {...props} />
                     }}
                   >
                     {activeContent.content}

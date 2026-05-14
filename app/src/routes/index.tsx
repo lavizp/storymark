@@ -102,7 +102,7 @@ function App() {
               Get Started
             </a>
             <div className="bg-[var(--card-bg)] border border-[var(--border)] rounded px-[20px] py-[10px] flex items-center justify-between gap-4">
-              <code className="font-mono text-[13px] text-[var(--accent)]">npm install storymark</code>
+              <code className="font-mono text-[13px] text-[var(--accent)]">npm install @lavizp/storymark</code>
               <button
                 onClick={handleCopyNpm}
                 className="text-[var(--text-dim)] hover:text-white transition-colors"
