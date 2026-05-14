@@ -13,7 +13,7 @@ Configure the Vite plugin in your config:
 \`\`\`ts
 // vite.config.ts
 import { defineConfig } from 'vite'
-import { storymarkPlugin } from 'storymark/vite'
+import { storymarkPlugin } from '@lavizp/storymark/vite'
 
 export default defineConfig({
   plugins: [
@@ -25,7 +25,7 @@ export default defineConfig({
 Then add the UI component:
 
 \`\`\`tsx
-import { StorymarkUI } from 'storymark/ui'
+import { StorymarkUI } from '@lavizp/storymark/ui'
 
 function App() {
   return <StorymarkUI />

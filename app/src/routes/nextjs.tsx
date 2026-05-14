@@ -12,7 +12,7 @@ Create an API route for the handler:
 
 \`\`\`ts
 // app/api/storymark/route.ts
-import { createStorymarkHandler } from 'storymark/next'
+import { createStorymarkHandler } from '@lavizp/storymark/next'
 
 export const GET = createStorymarkHandler({ docsPath: './docs' })
 \`\`\`
@@ -21,7 +21,7 @@ Add the UI to your docs page:
 
 \`\`\`tsx
 // app/docs/page.tsx
-import { StorymarkUI } from 'storymark/ui'
+import { StorymarkUI } from '@lavizp/storymark/ui'
 
 export default function DocsPage() {
   return <StorymarkUI />

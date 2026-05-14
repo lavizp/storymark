@@ -7,12 +7,12 @@ import { useState } from 'react';
 
 export const Route = createFileRoute('/')({ component: App })
 const nextjsSetup = `// app/api/storymark/route.ts
-import { createStorymarkHandler } from 'storymark/next'
+import { createStorymarkHandler } from '@lavizp/storymark/next'
 
 export const GET = createStorymarkHandler({ docsPath: './docs' })
 
 // app/admin/docs/page.tsx
-import { StorymarkUI } from 'storymark/ui'
+import { StorymarkUI } from '@lavizp/storymark/ui'
 
 export default function DocsPage() {
   return <StorymarkUI />
@@ -20,7 +20,7 @@ export default function DocsPage() {
 
 const viteSetup = `// vite.config.ts
 import { defineConfig } from 'vite'
-import { storymarkPlugin } from 'storymark/vite'
+import { storymarkPlugin } from '@lavizp/storymark/vite'
 
 export default defineConfig({
   plugins: [
@@ -29,7 +29,7 @@ export default defineConfig({
 })
 
 // src/App.tsx
-import { StorymarkUI } from 'storymark/ui'
+import { StorymarkUI } from '@lavizp/storymark/ui'
 
 function App() {
   return <StorymarkUI />
@@ -45,7 +45,7 @@ storymarkPlugin({
   docsPath: ['./docs', './guides', './faq']
 })`;
 
-const coreApi = `import { getMarkdownList, getMarkdownFile } from 'storymark/core'
+const coreApi = `import { getMarkdownList, getMarkdownFile } from '@lavizp/storymark/core'
 
 const files = getMarkdownList('./docs')
 // [{ id: 'getting-started', title: 'Getting Started', slug: 'getting-started' }]
@@ -56,7 +56,7 @@ function App() {
   const [copiedNpm, setCopiedNpm] = useState(false);
 
   const handleCopyNpm = () => {
-    navigator.clipboard.writeText('npm install storymark');
+    navigator.clipboard.writeText('npm install @lavizp/storymark');
     setCopiedNpm(true);
     setTimeout(() => setCopiedNpm(false), 2000);
   };

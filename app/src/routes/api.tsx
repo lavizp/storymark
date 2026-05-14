@@ -12,7 +12,7 @@ const content = `
 Import the core functions to work with markdown files programmatically:
 
 \`\`\`ts
-import { getMarkdownList, getMarkdownFile } from 'storymark/core'
+import { getMarkdownList, getMarkdownFile } from '@lavizp/storymark/core'
 
 const files = getMarkdownList('./docs')
 // [{ id: 'getting-started', title: 'Getting Started', slug: 'getting-started' }]

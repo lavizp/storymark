@@ -27,7 +27,7 @@ Then configure your API handler and add the UI to your app.`,
     content: `Install the package and its peer dependencies:
 
 \`\`\`bash
-npm install storymark
+npm install @lavizp/storymark
 npm install react react-dom react-markdown
 \`\`\`
 
@@ -43,7 +43,7 @@ npm install react react-dom react-markdown
     content: `Import the core functions to work with markdown files programmatically:
 
 \`\`\`ts
-import { getMarkdownList, getMarkdownFile } from 'storymark/core'
+import { getMarkdownList, getMarkdownFile } from '@lavizp/storymark/core'
 
 const files = getMarkdownList('./docs')
 // [{ id: 'getting-started', title: 'Getting Started', slug: 'getting-started' }]
@@ -60,7 +60,7 @@ const content = getMarkdownFile('./docs', 'getting-started')
 \`\`\`ts
 // vite.config.ts
 import { defineConfig } from 'vite'
-import { storymarkPlugin } from 'storymark/vite'
+import { storymarkPlugin } from '@lavizp/storymark/vite'
 
 export default defineConfig({
   plugins: [
@@ -72,7 +72,7 @@ export default defineConfig({
 Then add the UI component:
 
 \`\`\`tsx
-import { StorymarkUI } from 'storymark/ui'
+import { StorymarkUI } from '@lavizp/storymark/ui'
 
 function App() {
   return <StorymarkUI />
@@ -86,7 +86,7 @@ function App() {
 
 \`\`\`ts
 // app/api/storymark/route.ts
-import { createStorymarkHandler } from 'storymark/next'
+import { createStorymarkHandler } from '@lavizp/storymark/next'
 
 export const GET = createStorymarkHandler({ docsPath: './docs' })
 \`\`\`
@@ -95,7 +95,7 @@ Add the UI to your docs page:
 
 \`\`\`tsx
 // app/docs/page.tsx
-import { StorymarkUI } from 'storymark/ui'
+import { StorymarkUI } from '@lavizp/storymark/ui'
 
 export default function DocsPage() {
   return <StorymarkUI />
