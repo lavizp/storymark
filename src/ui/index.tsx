@@ -20,17 +20,17 @@ const styles: Record<string, React.CSSProperties> = {
   },
   sidebar: {
     width: '280px',
-    borderRight: '1px solid #e0e0e0',
-    backgroundColor: '#f5f5f5',
+    borderRight: '1px solid #27272a',
+    backgroundColor: '#0a0a0c',
     overflowY: 'auto',
     flexShrink: 0,
   },
   sidebarHeader: {
     padding: '16px',
-    borderBottom: '1px solid #e0e0e0',
+    borderBottom: '1px solid #27272a',
     fontWeight: 600,
     fontSize: '14px',
-    color: '#333',
+    color: '#f3f4f6',
   },
   sidebarList: {
     listStyle: 'none',
@@ -40,25 +40,27 @@ const styles: Record<string, React.CSSProperties> = {
   sidebarItem: {
     padding: '12px 16px',
     cursor: 'pointer',
-    borderBottom: '1px solid #e0e0e0',
+    borderBottom: '1px solid #27272a',
+    color: '#9ca3af',
     transition: 'background-color 0.15s ease',
   },
   sidebarItemActive: {
-    backgroundColor: '#e3e3e3',
-    borderLeft: '3px solid #1976d2',
+    backgroundColor: '#141418',
+    color: '#f3f4f6',
+    borderLeft: '3px solid #38bdf8',
   },
   main: {
     flex: 1,
     overflowY: 'auto',
     padding: '32px 48px',
-    backgroundColor: '#fff',
+    backgroundColor: '#141418',
   },
   empty: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     height: '100%',
-    color: '#666',
+    color: '#9ca3af',
     fontSize: '16px',
   },
   markdown: {
@@ -70,32 +72,37 @@ const styles: Record<string, React.CSSProperties> = {
     fontWeight: 600,
     marginBottom: '0.5em',
     paddingBottom: '0.3em',
-    borderBottom: '1px solid #e0e0e0',
+    borderBottom: '1px solid #27272a',
+    color: '#f3f4f6',
   },
   markdownH2: {
     fontSize: '1.5em',
     fontWeight: 600,
     marginTop: '1.5em',
     marginBottom: '0.5em',
+    color: '#f3f4f6',
   },
   markdownH3: {
     fontSize: '1.25em',
     fontWeight: 600,
     marginTop: '1.25em',
     marginBottom: '0.5em',
+    color: '#f3f4f6',
   },
   markdownP: {
     marginBottom: '1em',
+    color: '#d1d5db',
   },
   markdownCode: {
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#1a1a1e',
     padding: '2px 6px',
     borderRadius: '4px',
     fontFamily: 'monospace',
     fontSize: '0.9em',
+    color: '#38bdf8',
   },
   markdownPre: {
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#1a1a1e',
     padding: '16px',
     borderRadius: '8px',
     overflowX: 'auto',
@@ -103,26 +110,29 @@ const styles: Record<string, React.CSSProperties> = {
   markdownPreCode: {
     fontFamily: 'monospace',
     fontSize: '0.9em',
+    color: '#e5e7eb',
   },
   markdownUl: {
     paddingLeft: '24px',
     marginBottom: '1em',
+    color: '#d1d5db',
   },
   markdownOl: {
     paddingLeft: '24px',
     marginBottom: '1em',
+    color: '#d1d5db',
   },
   markdownLi: {
     marginBottom: '0.5em',
   },
   markdownBlockquote: {
-    borderLeft: '4px solid #1976d2',
+    borderLeft: '4px solid #38bdf8',
     paddingLeft: '16px',
     marginLeft: 0,
-    color: '#666',
+    color: '#9ca3af',
   },
   markdownA: {
-    color: '#1976d2',
+    color: '#38bdf8',
     textDecoration: 'none',
   },
   markdownAHover: {
@@ -198,7 +208,7 @@ export function StorymarkUI({ apiEndpoint = '/api/storymark', basePath = '/admin
               onClick={() => handleItemClick(file.id)}
               onMouseEnter={(e) => {
                 if (activeId !== file.id) {
-                  e.currentTarget.style.backgroundColor = '#eaeaea'
+                  e.currentTarget.style.backgroundColor = '#1a1a1e'
                 }
               }}
               onMouseLeave={(e) => {
