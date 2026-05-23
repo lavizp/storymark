@@ -22,7 +22,7 @@ npm install react react-dom react-markdown
 
 ```ts
 // app/api/storymark/route.ts
-import { createStorymarkHandler } from 'storymark/next'
+import { createStorymarkHandler } from '@lavizp/storymark/next'
 
 export const GET = createStorymarkHandler({ docsPath: './docs' })
 ```
@@ -31,7 +31,7 @@ export const GET = createStorymarkHandler({ docsPath: './docs' })
 
 ```tsx
 // app/admin/docs/page.tsx
-import { StorymarkUI } from 'storymark/ui'
+import { StorymarkUI } from '@lavizp/storymark/ui'
 
 export default function DocsPage() {
   return <StorymarkUI />
@@ -45,7 +45,7 @@ export default function DocsPage() {
 ```ts
 // vite.config.ts
 import { defineConfig } from 'vite'
-import { storymarkPlugin } from 'storymark/vite'
+import { storymarkPlugin } from '@lavizp/storymark/vite'
 
 export default defineConfig({
   plugins: [
@@ -58,7 +58,7 @@ export default defineConfig({
 
 ```tsx
 // src/App.tsx
-import { StorymarkUI } from 'storymark/ui'
+import { StorymarkUI } from '@lavizp/storymark/ui'
 
 function App() {
   return <StorymarkUI />
@@ -102,10 +102,10 @@ Fetch a specific file by its full ID:
 
 ## API
 
-### Core (`storymark/core`)
+### Core (`@lavizp/storymark/core`)
 
 ```ts
-import { getMarkdownList, getMarkdownFile } from 'storymark/core'
+import { getMarkdownList, getMarkdownFile } from '@lavizp/storymark/core'
 
 const files = getMarkdownList('./docs')
 // [{ id: 'getting-started', title: 'Getting Started', slug: 'getting-started' }]
@@ -118,10 +118,10 @@ const allFiles = getMarkdownList(['./docs', './guides'])
 const content = getMarkdownFile(['./docs', './guides'], 'guides/api')
 ```
 
-### UI (`storymark/ui`)
+### UI (`@lavizp/storymark/ui`)
 
 ```tsx
-import { StorymarkUI } from 'storymark/ui'
+import { StorymarkUI } from '@lavizp/storymark/ui'
 
 <StorymarkUI
   apiEndpoint="/api/storymark"
@@ -129,10 +129,10 @@ import { StorymarkUI } from 'storymark/ui'
 />
 ```
 
-### Next.js (`storymark/next`)
+### Next.js (`@lavizp/storymark/next`)
 
 ```ts
-import { createStorymarkHandler } from 'storymark/next'
+import { createStorymarkHandler } from '@lavizp/storymark/next'
 
 createStorymarkHandler({
   docsPath: './docs',
@@ -145,10 +145,10 @@ createStorymarkHandler({
 })
 ```
 
-### Vite (`storymark/vite`)
+### Vite (`@lavizp/storymark/vite`)
 
 ```ts
-import { storymarkPlugin } from 'storymark/vite'
+import { storymarkPlugin } from '@lavizp/storymark/vite'
 
 storymarkPlugin({
   docsPath: './docs',
