@@ -1,3 +1,4 @@
+import { Navbar } from '#/components/navbar'
 import { createFileRoute } from '@tanstack/react-router'
 import { FileText, ArrowRight } from 'lucide-react'
 import { useState } from 'react'
@@ -111,40 +112,16 @@ function DocsPage() {
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--text-main)] flex flex-col w-full overflow-x-hidden">
       {/* Navigation */}
-      <nav className="z-50 bg-[var(--bg)] border-b border-[var(--border)] px-12 flex items-center justify-between h-[80px] shrink-0">
-        <div className="font-serif italic font-bold tracking-[-0.5px] text-[24px]">
-          storymark
-        </div>
-        <div className="flex gap-8 uppercase tracking-[0.1em] text-[14px]">
-          <a href="/" className="text-[var(--text-dim)] hover:text-[var(--text-main)] transition-colors">
-            Home
-          </a>
-          <a href="/docs" className="text-[var(--text-main)] transition-colors">
-            Docs
-          </a>
-          <a href="/api" className="text-[var(--text-dim)] hover:text-[var(--text-main)] transition-colors">
-            API
-          </a>
-          <a href="/vite" className="text-[var(--text-dim)] hover:text-[var(--text-main)] transition-colors">
-            Vite
-          </a>
-          <a href="/nextjs" className="text-[var(--text-dim)] hover:text-[var(--text-main)] transition-colors">
-            Next.js
-          </a>
-          <a href="https://github.com/lavizp/storymark" target="_blank" rel="noopener noreferrer" className="text-[var(--text-dim)] hover:text-[var(--text-main)] transition-colors">
-            GitHub
-          </a>
-        </div>
-      </nav>
+      <Navbar activePath="/docs" />
 
       {/* Docs Content */}
-      <div className="flex-1 flex overflow-hidden">
+      <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
         {/* Sidebar */}
-        <aside className="w-[240px] bg-[#0a0a0c] border-r border-[var(--border)] p-6 flex flex-col shrink-0 overflow-y-auto">
-          <div className="text-[11px] font-semibold text-[var(--text-dim)] uppercase tracking-wider mb-4">
+        <aside className="w-full md:w-[240px] bg-[#0a0a0c] md:border-r border-b md:border-b-0 border-[var(--border)] p-4 md:p-6 flex flex-row md:flex-col shrink-0 overflow-x-auto md:overflow-y-auto">
+          <div className="hidden md:block text-[11px] font-semibold text-[var(--text-dim)] uppercase tracking-wider mb-4">
             Documentation
           </div>
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-row md:flex-col gap-2 md:gap-1">
             {sections.map((section) => (
               <button
                 key={section.id}
@@ -155,6 +132,7 @@ function DocsPage() {
                     ? 'text-[var(--accent)] bg-[rgba(56,189,248,0.1)]'
                     : 'text-[var(--text-dim)] hover:text-[var(--text-main)] hover:bg-[rgba(255,255,255,0.03)]'
                   }
+                  whitespace-nowrap
                 `}
               >
                 <FileText size={14} className="shrink-0 opacity-70" />
@@ -165,11 +143,11 @@ function DocsPage() {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 p-12 overflow-y-auto">
+        <main className="flex-1 p-6 md:p-12 overflow-y-auto">
           <div className="max-w-[720px] mx-auto">
             {activeContent && (
               <>
-                <h1 className="font-serif text-[40px] mb-6 leading-tight">
+                <h1 className="font-serif text-3xl md:text-[40px] mb-6 leading-tight">
                   {activeContent.title}
                 </h1>
                 <div className="h-[1px] bg-[var(--border)] w-full mb-8" />

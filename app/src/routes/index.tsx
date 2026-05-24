@@ -1,4 +1,5 @@
 import { CodeBlock } from '#/components/code-blocks';
+import { Navbar } from '#/components/navbar';
 import { Tabs } from '#/components/tabs';
 import { createFileRoute } from '@tanstack/react-router'
 import { Check, Copy, FileText, Folder } from 'lucide-react';
@@ -61,44 +62,23 @@ function App() {
     setTimeout(() => setCopiedNpm(false), 2000);
   };
   return (
-    <div className="min-h-screen bg-[var(--bg)] text-[var(--text-main)] flex flex-col w-full h-[100vh] overflow-x-hidden">
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--text-main)] flex flex-col w-full overflow-x-hidden">
       {/* Navigation */}
-      <nav className="z-50 bg-[var(--bg)] border-b border-[var(--border)] px-12 flex items-center justify-between h-[80px] shrink-0">
-        <div className="font-serif italic font-bold tracking-[-0.5px] text-[24px]">
-          storymark
-        </div>
-        <div className="flex gap-8 uppercase tracking-[0.1em] text-[14px]">
-          <a href="/docs" className="text-[var(--text-dim)] hover:text-[var(--text-main)] transition-colors">
-            Docs
-          </a>
-          <a href="/api" className="text-[var(--text-dim)] hover:text-[var(--text-main)] transition-colors">
-            API
-          </a>
-          <a href="/vite" className="text-[var(--text-dim)] hover:text-[var(--text-main)] transition-colors">
-            Vite
-          </a>
-          <a href="/nextjs" className="text-[var(--text-dim)] hover:text-[var(--text-main)] transition-colors">
-            Next.js
-          </a>
-          <a href="https://github.com/lavizp/storymark" target="_blank" rel="noopener noreferrer" className="text-[var(--text-dim)] hover:text-[var(--text-main)] transition-colors">
-            GitHub
-          </a>
-        </div>
-      </nav>
+      <Navbar activePath="/" />
 
       {/* Hero Section */}
-      <main className="flex-1 p-12 grid lg:grid-cols-[3.5fr_5fr] gap-8 items-center max-w-[1150px] mx-auto w-full">
+      <main className="flex-1 p-6 md:p-12 grid grid-cols-1 lg:grid-cols-[3.5fr_5fr] gap-8 items-center max-w-[1150px] mx-auto w-full">
         <div className="flex flex-col">
-          <h1 className="font-serif text-[64px] font-normal leading-[1.1] mb-6">
+          <h1 className="font-serif text-4xl md:text-[64px] font-normal leading-[1.1] mb-6">
             Modern Storybook for Markdown.
           </h1>
 
-          <p className="text-[18px] text-[var(--text-dim)] max-w-[440px] leading-[1.6] mb-8">
+          <p className="text-[18px] text-[var(--text-dim)] max-w-full md:max-w-[440px] leading-[1.6] mb-8">
             The developer-friendly sandbox for documenting components and guides. Built for React, powered by Next.js and Vite.
           </p>
 
-          <div className="flex gap-4 items-center">
-            <a href="/docs" className="bg-[var(--text-main)] text-[var(--bg)] px-[28px] py-[12px] rounded font-semibold text-[14px] hover:opacity-90 transition-opacity">
+          <div className="flex flex-col sm:flex-row gap-4 sm:items-center">
+            <a href="/docs" className="bg-[var(--text-main)] text-[var(--bg)] px-[28px] py-[12px] rounded font-semibold text-[14px] hover:opacity-90 transition-opacity text-center">
               Get Started
             </a>
             <div className="bg-[var(--card-bg)] border border-[var(--border)] rounded px-[20px] py-[10px] flex items-center justify-between gap-4">
@@ -118,7 +98,7 @@ function App() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="w-full"
+          className="w-full hidden md:block"
         >
           <div className="bg-[var(--card-bg)] rounded-lg shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] border border-[var(--border)] overflow-hidden h-[420px] flex flex-col">
             <div className="h-[32px] bg-[#1e1e24] flex items-center px-[12px] justify-between shrink-0 border-b border-[var(--border)]">
@@ -224,7 +204,7 @@ function App() {
 
 
         {/* Features Bento Grid */}
-        <div className="grid md:grid-cols-3 gap-6 col-span-2 lg:col-span-2 mt-6 max-w-[1150px] mx-auto w-full px-12 shrink-0">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 col-span-1 lg:col-span-2 mt-6 max-w-[1150px] mx-auto w-full px-6 md:px-12 shrink-0">
           {/* Feature 1 */}
           <div className="card-panel p-6">
             <h3 className="text-[14px] uppercase tracking-[0.1em] text-[var(--accent)] mb-3">
@@ -258,7 +238,7 @@ function App() {
       </main>
 
       {/* Footer */}
-      <footer className="mt-auto px-12 py-[24px] text-[12px] text-[#4b5563] border-t border-[var(--border)] flex justify-between max-w-[1150px] mx-auto w-full shrink-0">
+      <footer className="mt-auto px-6 md:px-12 py-[24px] text-[12px] text-[#4b5563] border-t border-[var(--border)] flex flex-col sm:flex-row justify-between gap-4 sm:gap-0 text-center sm:text-left max-w-[1150px] mx-auto w-full shrink-0">
         <span>Licensed under MIT</span>
         <span>Compatible with React 18+ and Next.js 13+</span>
       </footer>
