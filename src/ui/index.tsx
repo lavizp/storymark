@@ -170,11 +170,12 @@ export function StorymarkUI({ apiEndpoint = '/api/storymark', basePath = '/admin
 
   useEffect(() => {
     if (!activeId) return
+    const active = activeId
 
     async function fetchContent() {
       setLoading(true)
       try {
-        const res = await fetch(`${apiEndpoint}/${activeId}`)
+        const res = await fetch(`${apiEndpoint}?id=${encodeURIComponent(active)}`)
         if (res.ok) {
           const text = await res.text()
           setContent(text)

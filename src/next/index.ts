@@ -21,11 +21,9 @@ export function createStorymarkHandler(options: StorymarkHandlerOptions) {
     }
 
     const url = new URL(request.url)
-    const pathParts = url.pathname.split('/').filter(Boolean)
+    const id = url.searchParams.get('id')
 
-    const isBaseEndpoint = pathParts.length === 1 && pathParts[0] === 'api' && url.pathname.endsWith('/api/storymark')
-
-    if (isBaseEndpoint || url.pathname === '/api/storymark') {
+    if (!id) {
       const list = getMarkdownList(docsPath)
       return new Response(JSON.stringify(list), {
         status: 200,
@@ -33,22 +31,13 @@ export function createStorymarkHandler(options: StorymarkHandlerOptions) {
       })
     }
 
-    if (pathParts.includes('storymark')) {
-      const idIndex = pathParts.indexOf('storymark') + 1
-      const id = pathParts[idIndex]
-
-      if (id) {
-        const content = getMarkdownFile(docsPath, id)
-        if (content === null) {
-          return new Response('Not Found', { status: 404 })
-        }
-        return new Response(content, {
-          status: 200,
-          headers: { 'Content-Type': 'text/markdown' },
-        })
-      }
+    const content = getMarkdownFile(docsPath, id)
+    if (content === null) {
+      return new Response('Not Found', { status: 404 })
     }
-
-    return new Response('Not Found', { status: 404 })
+    return new Response(content, {
+      status: 200,
+      headers: { 'Content-Type': 'text/markdown' },
+    })
   }
 }

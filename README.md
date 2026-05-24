@@ -18,7 +18,7 @@ npm install react react-dom react-markdown
 
 ### Next.js
 
-1. Create an API route:
+Create a single API route (no catch-all segments needed):
 
 ```ts
 // app/api/storymark/route.ts
@@ -27,7 +27,7 @@ import { createStorymarkHandler } from '@lavizp/storymark/next'
 export const GET = createStorymarkHandler({ docsPath: './docs' })
 ```
 
-2. Add the UI to a page:
+Add the UI to a page:
 
 ```tsx
 // app/admin/docs/page.tsx
@@ -93,11 +93,11 @@ Each file's ID is prefixed with its folder path to avoid collisions:
 ]
 ```
 
-Fetch a specific file by its full ID:
+Fetch a specific file by its full ID using a query parameter:
 
 ```ts
-// GET /api/storymark/docs/getting-started
-// GET /api/storymark/guides/api
+// GET /api/storymark?id=docs/getting-started
+// GET /api/storymark?id=guides/api
 ```
 
 ## API
