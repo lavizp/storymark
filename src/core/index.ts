@@ -20,6 +20,26 @@ function formatTitle(filename: string): string {
     .replace(/\b\w/g, (char) => char.toUpperCase())
 }
 
+function walkDir(dirPath: string, basePath: string): string[] {
+  const results: string[] = []
+
+  const entries = fs.readdirSync(dirPath, { withFileTypes: true })
+
+  for (const entry of entries) {
+    const fullPath = path.join(dirPath, entry.name)
+
+    if (entry.isDirectory()) {
+      const subResults = walkDir(fullPath, basePath)
+      results.push(...subResults)
+    } else if (entry.name.endsWith('.md')) {
+      const relativePath = path.relative(basePath, fullPath)
+      results.push(relativePath.replace(/\\/g, '/'))
+    }
+  }
+
+  return results
+}
+
 export function getMarkdownList(docsPath: string | string[]): MarkdownListResult[] {
   const docsPaths = Array.isArray(docsPath) ? docsPath : [docsPath]
   const results: MarkdownListResult[] = []
@@ -32,16 +52,15 @@ export function getMarkdownList(docsPath: string | string[]): MarkdownListResult
       continue
     }
 
-    const files = fs.readdirSync(resolvedPath)
-    const markdownFiles = files.filter((file) => file.endsWith('.md'))
+    const relativePaths = walkDir(resolvedPath, resolvedPath)
 
-    for (const filename of markdownFiles) {
-      const idWithoutExt = filename.replace(/\.md$/, '')
+    for (const relativePath of relativePaths) {
+      const idWithoutExt = relativePath.replace(/\.md$/, '')
       const id = prefix ? `${prefix}/${idWithoutExt}` : idWithoutExt
 
       results.push({
         id,
-        title: formatTitle(filename),
+        title: formatTitle(path.basename(relativePath)),
         slug: id,
       })
     }

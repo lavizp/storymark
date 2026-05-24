@@ -49,6 +49,21 @@ const styles: Record<string, React.CSSProperties> = {
     color: '#f3f4f6',
     borderLeft: '3px solid #38bdf8',
   },
+  sidebarFolder: {
+    padding: '12px 16px',
+    cursor: 'pointer',
+    color: '#9ca3af',
+    fontSize: '13px',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '6px',
+    userSelect: 'none',
+    transition: 'background-color 0.15s ease',
+  },
+  folderIcon: {
+    fontSize: '12px',
+    flexShrink: 0,
+  },
   main: {
     flex: 1,
     overflowY: 'auto',
@@ -140,11 +155,54 @@ const styles: Record<string, React.CSSProperties> = {
   },
 }
 
+interface TreeNode {
+  type: 'file' | 'folder'
+  name: string
+  id?: string
+  title?: string
+  slug?: string
+  children?: TreeNode[]
+}
+
+function buildTree(files: StorymarkFile[]): TreeNode[] {
+  const root: TreeNode[] = []
+
+  for (const file of files) {
+    const parts = file.id.split('/')
+    let currentLevel = root
+
+    for (let i = 0; i < parts.length - 1; i++) {
+      const partName = parts[i]
+      let folder = currentLevel.find(
+        (n) => n.type === 'folder' && n.name === partName
+      ) as TreeNode | undefined
+
+      if (!folder) {
+        folder = { type: 'folder', name: partName, children: [] }
+        currentLevel.push(folder)
+      }
+
+      currentLevel = folder.children!
+    }
+
+    currentLevel.push({
+      type: 'file',
+      name: file.title,
+      id: file.id,
+      title: file.title,
+      slug: file.slug,
+    })
+  }
+
+  return root
+}
+
 export function StorymarkUI({ apiEndpoint = '/api/storymark', basePath = '/admin/docs' }: StorymarkUIProps) {
   const [files, setFiles] = useState<StorymarkFile[]>([])
   const [activeId, setActiveId] = useState<string | null>(null)
   const [content, setContent] = useState<string>('')
   const [loading, setLoading] = useState(false)
+  const [collapsedFolders, setCollapsedFolders] = useState<Set<string>>(new Set())
 
   useEffect(() => {
     const hash = window.location.hash.slice(1)
@@ -194,33 +252,86 @@ export function StorymarkUI({ apiEndpoint = '/api/storymark', basePath = '/admin
     window.location.hash = id
   }
 
+  const toggleFolder = (path: string) => {
+    setCollapsedFolders((prev) => {
+      const next = new Set(prev)
+      if (next.has(path)) {
+        next.delete(path)
+      } else {
+        next.add(path)
+      }
+      return next
+    })
+  }
+
+  const tree = React.useMemo(() => buildTree(files), [files])
+
+  function renderTree(nodes: TreeNode[], depth: number, parentPath: string) {
+    return nodes.map((node) => {
+      if (node.type === 'file') {
+        return (
+          <li
+            key={node.id!}
+            style={{
+              ...styles.sidebarItem,
+              ...(activeId === node.id ? styles.sidebarItemActive : {}),
+              paddingLeft: 16 + depth * 16,
+            }}
+            onClick={() => handleItemClick(node.id!)}
+            onMouseEnter={(e) => {
+              if (activeId !== node.id) {
+                e.currentTarget.style.backgroundColor = '#1a1a1e'
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (activeId !== node.id) {
+                e.currentTarget.style.backgroundColor = 'transparent'
+              }
+            }}
+          >
+            {node.title}
+          </li>
+        )
+      }
+
+      const folderPath = parentPath ? `${parentPath}/${node.name}` : node.name
+      const isCollapsed = collapsedFolders.has(folderPath)
+
+      return (
+        <li key={folderPath} style={{ listStyle: 'none' }}>
+          <div
+            style={{
+              ...styles.sidebarFolder,
+              paddingLeft: 16 + depth * 16,
+            }}
+            onClick={() => toggleFolder(folderPath)}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#1a1a1e'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent'
+            }}
+          >
+            <span style={styles.folderIcon}>{isCollapsed ? '▶' : '▼'}</span>
+            <span style={styles.folderIcon}>📁</span>
+            <span style={{ textTransform: 'capitalize' }}>{node.name}</span>
+          </div>
+          {!isCollapsed && (
+            <ul style={styles.sidebarList}>
+              {renderTree(node.children!, depth + 1, folderPath)}
+            </ul>
+          )}
+        </li>
+      )
+    })
+  }
+
   return (
     <div style={styles.container}>
       <aside style={styles.sidebar}>
         <div style={styles.sidebarHeader}>Documents</div>
         <ul style={styles.sidebarList}>
-          {files.map((file) => (
-            <li
-              key={file.id}
-              style={{
-                ...styles.sidebarItem,
-                ...(activeId === file.id ? styles.sidebarItemActive : {}),
-              }}
-              onClick={() => handleItemClick(file.id)}
-              onMouseEnter={(e) => {
-                if (activeId !== file.id) {
-                  e.currentTarget.style.backgroundColor = '#1a1a1e'
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (activeId !== file.id) {
-                  e.currentTarget.style.backgroundColor = 'transparent'
-                }
-              }}
-            >
-              {file.title}
-            </li>
-          ))}
+          {renderTree(tree, 0, '')}
         </ul>
       </aside>
       <main style={styles.main}>
